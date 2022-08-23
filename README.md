@@ -1,24 +1,21 @@
-# task-tracker
+# Task Tracker
 
-## Project setup
+Visualizar o projeto: <a href="https://task-time-tracker.vercel.app/">na Vercel</a>
+
+## Como rodar
+
+### Clonar o projeto:
+```
+git clone https://github.com/EtorLucca/task-time-tracker.git
+```
+
+### Instalar as dependências:
+
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Rodar o projeto na porta padrão:
 ```
 yarn serve
 ```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
