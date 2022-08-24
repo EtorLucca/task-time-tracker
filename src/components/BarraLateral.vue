@@ -5,6 +5,22 @@
       <span class="logoText">Task Tracker</span>
     </div>
     <button class="button" @click="alterarTema">{{ textoBotao }}</button>
+    <nav class="painel mt-5">
+      <ul>
+        <li>
+          <router-link to="/" class="link">
+            <font-awesome-icon icon="fa-solid fa-list-check" />
+            Tarefas
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/projetos" class="link">
+            <font-awesome-icon icon="fa-solid fa-diagram-project" />
+            Projetos
+          </router-link>
+        </li>
+      </ul>
+    </nav>
   </header>
 </template>
 
@@ -71,5 +87,22 @@
       padding: 2.5rem;
       height: auto;
     }
+  }
+  .painel {
+    align-self: flex-start;
+    margin-left: 32px;
+    text-align: left;
+  }
+  .painel li {
+    margin: 8px 0;
+  }
+  .link {
+    color: #FFFFFF;
+  }
+  .link:hover {
+    color: #FAF0CA;
+  }
+  .link.router-link-active {
+    color: #FAF0CA;
   }
 </style>
