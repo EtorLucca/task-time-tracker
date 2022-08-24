@@ -9,23 +9,20 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "vue";
+  import { computed, defineComponent } from "vue";
   import FormularioVue from "../components/Formulario.vue";
   import TarefaVue from "../components/Tarefa.vue";
   import ITarefa from "../intefaces/ITarefa";
   import BoxVue from "../components/Box.vue";
+  import { useStore } from "@/store";
+  import { ADICIONA_TAREFA } from "@/store/tipo-mutacoes";
 
   export default defineComponent({
     name: "App",
     components: {
-    FormularioVue,
-    TarefaVue,
-    BoxVue,
-},
-    data () {
-      return {
-        tarefas: [] as ITarefa[],
-      }
+      FormularioVue,
+      TarefaVue,
+      BoxVue,
     },
     computed: {
       listaEstaVazia() : boolean {
@@ -34,8 +31,15 @@
     },
     methods: {
       salvarTarefa(tarefa: ITarefa) {
-        this.tarefas.push(tarefa)
+        this.store.commit(ADICIONA_TAREFA, tarefa);
       }
-    }
+    },
+    setup() {
+      const store = useStore();
+      return {
+        tarefas: computed(() => store.state.tarefas),
+        store,
+      };
+    },
   });
 </script>
