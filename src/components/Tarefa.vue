@@ -1,6 +1,6 @@
 <template>
   <BoxVue>
-    <div class="columns">
+    <div class="columns clicavel" @click="tarefaClicada">
       <div class="column is-4">
         {{ tarefa.descricao || "Tarefa sem descrição" }}
       </div>
@@ -15,13 +15,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from "vue";
+  import { computed, defineComponent, PropType } from "vue";
   import CronometroVue from "./Cronometro.vue";
   import ITarefa from "../intefaces/ITarefa";
   import BoxVue from "./Box.vue";
 
   export default defineComponent({
     name: "TarefaVue",
+    emits: ["aoTarefaClicada"],
     components: {
       CronometroVue,
       BoxVue
@@ -32,5 +33,28 @@
         required: true,
       },
     },
+    setup(props, { emit }) {
+      const tarefaClicada = (): void => {
+        emit("aoTarefaClicada", props.tarefa)
+      }
+
+      const tempoGasto = computed(() => {
+        return new Date(props.tarefa.duracaoEmSegundos * 1000)
+          .toISOString()
+          .substring(11, 19)
+      })
+
+      return {
+        tarefaClicada,
+        tempoGasto
+      }
+
+    }
   });
 </script>
+
+<style scoped>
+  .clicavel {
+    cursor: pointer;
+  }
+</style>

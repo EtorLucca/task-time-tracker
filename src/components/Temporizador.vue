@@ -22,7 +22,7 @@
 
   export default defineComponent({
     name: "TemporizadorVue",
-    emits: ["aoTemporizadorFinalizado"],
+    emits: ["aoFinalizarTarefa"],
     components: {
       CronometroVue,
     },
@@ -40,11 +40,11 @@
           this.tempoEmSegundos += 1
         }, 1000);
       },
-      finalizar() {
+      finalizar() : void {
+        this.$emit("aoFinalizarTarefa", this.tempoEmSegundos);
+        this.tempoEmSegundos = 0;
         this.cronometroRodando = false;
         clearInterval(this.cronometro);
-        this.$emit("aoTemporizadorFinalizado", this.tempoEmSegundos);
-        this.tempoEmSegundos = 0;
       },
     },
   });

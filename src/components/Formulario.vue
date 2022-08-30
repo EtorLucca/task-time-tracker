@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="column">
-        <TemporizadorVue @aoTemporizadorFinalizado="finaliarTarefa" />
+        <TemporizadorVue @aoFinalizarTarefa="finaliarTarefa" />
       </div>
     </div>
   </div>
@@ -37,7 +37,7 @@
 <script lang="ts">
 import { TipoNotificacao } from "@/intefaces/INotificacao";
 import { key } from "@/store";
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 import TemporizadorVue from "./Temporizador.vue";
 import useNotificador from "@/hooks/notificador";
@@ -48,39 +48,45 @@ export default defineComponent({
   components: {
     TemporizadorVue,
   },
-  data() {
-    return {
-      descricao: "",
-      idProjeto: "",
-    };
-  },
   methods: {
-    finaliarTarefa(tempoDecorrido: number): void {
-      const projeto = this.projetos.find((proj) => proj.id == this.idProjeto);
+    
+  },
+  setup(props, { emit }) {
+    const store = useStore(key);
+
+    const descricao = ref("");
+    const idProjeto = ref("");
+
+    const { notificar } = useNotificador();
+    const projetos = computed(() => store.state.projeto.projetos);
+    const notificacoes = computed(() => store.state.notificacoes);
+
+    const finaliarTarefa = (tempoEmSegundos: number): void  => {
+      const projeto = projetos.value.find((proj) => proj.id == idProjeto.value);
       if (!projeto) {
-        this.notificar(
+        notificar(
           TipoNotificacao.FALHA,
           "Ops!",
           "Selecione um projeto antes de finalizar a tarefa!"
         );
         return;
       } else {
-        this.$emit("aoSalvarTarefa", {
-          duracaoEmSegundos: tempoDecorrido,
-          descricao: this.descricao,
-          projeto: this.projetos.find((proj) => proj.id == this.idProjeto),
+        emit("aoSalvarTarefa", {
+          duracaoEmSegundos: tempoEmSegundos,
+          descricao: descricao.value,
+          projeto: projetos.value.find((proj) => proj.id == idProjeto.value),
         });
-        this.descricao = "";
+        descricao.value = "";
       }
-    },
-  },
-  setup() {
-    const store = useStore(key);
-    const { notificar } = useNotificador()
+    }
+
     return {
-      projetos: computed(() => store.state.projetos),
-      notificacoes: computed(() => store.state.notificacoes),
-      notificar
+      projetos,
+      notificacoes,
+      notificar,
+      descricao,
+      idProjeto,
+      finaliarTarefa
     };
   },
 });

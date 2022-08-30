@@ -1,0 +1,50 @@
+{
+  "projetos": [
+    {
+      "id": 1,
+      "nome": "Alura Tracker"
+    },
+    {
+      "nome": "Teste",
+      "id": 2
+    }
+  ],
+  "tarefas": [
+    {
+      "id": 1,
+      "duracaoEmSegundos": 120,
+      "descricao": "Configuração do Ambiente",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker"
+      }
+    },
+    {
+      "duracaoEmSegundos": 2,
+      "descricao": "Alura Tracker 2.0",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker"
+      },
+      "id": 2
+    },
+    {
+      "duracaoEmSegundos": 3,
+      "descricao": "Alura teste",
+      "projeto": {
+        "nome": "Teste",
+        "id": 2
+      },
+      "id": 3
+    },
+    {
+      "duracaoEmSegundos": 4,
+      "descricao": "Ambiente legal",
+      "projeto": {
+        "nome": "Teste",
+        "id": 2
+      },
+      "id": 4
+    }
+  ]
+}

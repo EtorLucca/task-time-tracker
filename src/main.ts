@@ -11,6 +11,7 @@ import {
   faPlus,
   faPencilAlt,
   faTrash,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import roteador from "./roteador";
 import { key, store } from "./store";
@@ -23,7 +24,8 @@ library.add(
   faDiagramProject,
   faPlus,
   faPencilAlt,
-  faTrash
+  faTrash,
+  faMagnifyingGlass
 );
 
 createApp(App)
